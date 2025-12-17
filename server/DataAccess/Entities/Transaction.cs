@@ -33,6 +33,8 @@ public class Transaction
     
     //Who approved or rejected transaction.
     public Guid? ProcessedBy { get; set; }
+    
+    //TODO I think this is redundant and should be removed, leave ProcessedBy in case more admin users get added later.
     public ApplicationUser? ProcessedByUser { get; set; }
     
     public DateTime? ProcessedAt { get; set; }

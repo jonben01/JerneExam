@@ -1,0 +1,1936 @@
+{
+  "x-generator": "NSwag v14.6.0.0 (NJsonSchema v11.5.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/Auth/RegisterPlayer": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_RegisterPlayer",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterPlayerRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_Login",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/ForgotPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_ForgotPassword",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Auth/ConfirmEmail": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_ConfirmEmail",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmEmailRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Auth/ResetPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_ResetPassword",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Board/PurchaseBoard": {
+      "post": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_PurchaseBoard",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurchaseBoardRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoardPurchaseResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/GetBoardById/{boardId}": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_GetBoardById",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoardDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/GetMyBoards": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_GetMyBoards",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/GetMyWinningBoards": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_GetMyWinningBoards",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/CanAffordBoard": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_CanAffordBoard",
+        "parameters": [
+          {
+            "name": "numberCount",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/GetBoardsForGame": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_GetBoardsForGame",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "includePlayerInfo",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/GetWinningBoardsForGame": {
+      "get": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_GetWinningBoardsForGame",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Board/DeleteBoard/{boardId}": {
+      "delete": {
+        "tags": [
+          "Board"
+        ],
+        "operationId": "Board_DeleteBoard",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Game/GetActiveGame": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetActiveGame",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetGameById/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetGameById",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetGameHistory": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetGameHistory",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GameDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/PublishWinningNumbersAndEndGame": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_PublishWinningNumbersAndEndGame",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishWinningNumbersRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetGameAdminOverview/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetGameAdminOverview",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameAdminOverviewDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetWinningBoardsForGame/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetWinningBoardsForGame",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetTotalWinningBoardCount/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetTotalWinningBoardCount",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetAllGameStats": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetAllGameStats",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GameStatsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/GetGameStatsById/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetGameStatsById",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStatsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/CanAcceptNewBoards/{gameId}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_CanAcceptNewBoards",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/GetMe": {
+      "get": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_GetMe",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/UpdateMe": {
+      "put": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_UpdateMe",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlayerRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/SearchUsers": {
+      "get": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_SearchUsers",
+        "parameters": [
+          {
+            "name": "Query",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 50,
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "IsActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "IncludeDeleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationUserListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/GetById/{userId}": {
+      "get": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_GetById",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/UpdatePlayer/{playerId}": {
+      "put": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_UpdatePlayer",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlayerAdminRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/SetActivityStatus/{playerId}": {
+      "post": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_SetActivityStatus",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Player/SoftDelete/{userId}": {
+      "delete": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_SoftDelete",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Player/Restore/{userId}": {
+      "post": {
+        "tags": [
+          "Player"
+        ],
+        "operationId": "Player_Restore",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Transaction/CreateDepositRequest": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_CreateDepositRequest",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDepositRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetMyTransactionHistory": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetMyTransactionHistory",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionHistoryListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetMyBalance": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetMyBalance",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetPendingDeposits": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetPendingDeposits",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PendingDepositsListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/ApproveDeposit/{transactionId}": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_ApproveDeposit",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Transaction/RejectDeposit/{transactionId}": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_RejectDeposit",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetTransactionHistory": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetTransactionHistory",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionHistoryListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetUserTransactionHistory/{userId}": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetUserTransactionHistory",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionHistoryListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetByMobilePayReference": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetByMobilePayReference",
+        "parameters": [
+          {
+            "name": "mobilePayRef",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/GetById/{transactionId}": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Transaction_GetById",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApplicationUserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "isActivePlayer": {
+            "type": "boolean"
+          },
+          "role": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "RegisterPlayerRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "fullName",
+          "phoneNumber"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 150,
+            "minLength": 1
+          },
+          "fullName": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "phoneNumber": {
+            "type": "string",
+            "format": "phone",
+            "minLength": 1,
+            "pattern": "^\\d{8}$"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/ApplicationUserDto"
+          },
+          "role": {
+            "type": "string"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
+        }
+      },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1
+          }
+        }
+      },
+      "ConfirmEmailRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "token",
+          "password"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "token": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "token",
+          "newPassword"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "token": {
+            "type": "string",
+            "minLength": 1
+          },
+          "newPassword": {
+            "type": "string",
+            "minLength": 6
+          }
+        }
+      },
+      "BoardPurchaseResponseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "board": {
+            "$ref": "#/components/schemas/BoardDto"
+          },
+          "newBalance": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "BoardDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "gameId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "playerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "numberCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceDkk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isWinningBoard": {
+            "type": "boolean"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numbers": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "game": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameDto"
+              }
+            ]
+          },
+          "player": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationUserDto"
+              }
+            ]
+          },
+          "playerName": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "GameDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "weekNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "guessDeadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "winningNumber1": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "winningNumber2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "winningNumber3": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "numbersPublishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "PurchaseBoardRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gameId",
+          "numbers"
+        ],
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "format": "guid",
+            "minLength": 1
+          },
+          "numbers": {
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 5,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      },
+      "PublishWinningNumbersRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gameId",
+          "winningNumber1",
+          "winningNumber2",
+          "winningNumber3"
+        ],
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "format": "guid",
+            "minLength": 1
+          },
+          "winningNumber1": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 16.0,
+            "minimum": 1.0
+          },
+          "winningNumber2": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 16.0,
+            "minimum": 1.0
+          },
+          "winningNumber3": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 16.0,
+            "minimum": 1.0
+          }
+        }
+      },
+      "GameAdminOverviewDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "game": {
+            "$ref": "#/components/schemas/GameDto"
+          },
+          "winningNumbers": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "totalBoards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "winningBoards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "boards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BoardDto"
+            }
+          },
+          "winningBoardIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      },
+      "GameStatsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "weekNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBoards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalWinningBoards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "winningNumber1": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "winningNumber2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "winningNumber3": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "numbersPublishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isFinished": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdatePlayerRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phoneNumber"
+        ],
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "format": "phone",
+            "maxLength": 15,
+            "minLength": 1
+          }
+        }
+      },
+      "ApplicationUserListItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "isActivePlayer": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "UpdatePlayerAdminRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "maxLength": 100,
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100,
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "format": "phone",
+            "maxLength": 15,
+            "nullable": true
+          }
+        }
+      },
+      "CreateDepositRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "amountDkk",
+          "mobilePayReference"
+        ],
+        "properties": {
+          "amountDkk": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647.0,
+            "minimum": 1.0
+          },
+          "mobilePayReference": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 0,
+            "pattern": "^\\d{1,20}$"
+          }
+        }
+      },
+      "TransactionHistoryListItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          },
+          "playerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "mobilePayReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "boardId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "amountDkk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "processedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TransactionStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Pending",
+          "Approved",
+          "Rejected"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "PendingDepositsListItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "playerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "playerFullName": {
+            "type": "string"
+          },
+          "mobilePayReference": {
+            "type": "string"
+          },
+          "amountDkk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TransactionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "playerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "transactionType": {
+            "$ref": "#/components/schemas/TransactionType"
+          },
+          "amountDkk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          },
+          "mobilePayReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "boardId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "processedBy": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "processedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "player": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationUserDto"
+              }
+            ]
+          },
+          "board": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BoardDto"
+              }
+            ]
+          }
+        }
+      },
+      "TransactionType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Deposit",
+          "Purchase"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      }
+    }
+  }
+}

@@ -99,6 +99,14 @@ public class MyDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>
             .HasForeignKey(t => t.ProcessedBy)
             .OnDelete(DeleteBehavior.Restrict);
         
+        //Enforce mobile pay reference uniqueness at db level
+        builder.Entity<Transaction>(entity =>
+        {
+            entity.Property(t => t.MobilePayReference).IsRequired(false);
+
+            entity.HasIndex(t => t.MobilePayReference).IsUnique();
+        });
+        
         //soft-delete filters
         builder.Entity<ApplicationUser>()
             .HasQueryFilter(u => !u.IsDeleted);
