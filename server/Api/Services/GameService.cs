@@ -24,6 +24,56 @@ public class GameService : IGameService
     
     public async Task<GameDto> GetActiveGameAsync()
     {
+        var active = await _dbContext.Games
+            .AsNoTracking()
+            .SingleOrDefaultAsync(g => g.IsActive && g.NumbersPublishedAt == null);
+
+        if (active is not null)
+        {
+            return active.ToDto();
+        }
+        
+        await using var tx = await _dbContext.Database.BeginTransactionAsync();
+        
+        var nowDkDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, DkTimeZone).Date;
+        var currentWeek = ISOWeek.GetWeekOfYear(nowDkDate);
+        var currentYear = ISOWeek.GetYear(nowDkDate);
+                
+        var nowUtc = DateTime.UtcNow;
+        
+        active = await _dbContext.Games
+            .AsNoTracking()
+            .SingleOrDefaultAsync(g => g.IsActive && g.NumbersPublishedAt == null);
+        
+        if (active is not null)
+        {
+            await tx.CommitAsync();
+            return active.ToDto();
+        }
+        
+        var currentGame = await _dbContext.Games
+            .SingleOrDefaultAsync(g => g.Year == currentYear
+                                       && g.WeekNumber == currentWeek
+                                       && g.NumbersPublishedAt == null);
+        
+        if (currentGame is null)
+            throw new InvalidOperationException($"No game found for DK ISO week {currentWeek}, year {currentYear}.");
+        
+        await _dbContext.Games
+            .Where(g => g.IsActive && g.NumbersPublishedAt == null)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(x => x.IsActive, false)
+                .SetProperty(x => x.UpdatedAt, nowUtc));
+
+        currentGame.IsActive = true;
+        currentGame.UpdatedAt = nowUtc;
+
+        await _dbContext.SaveChangesAsync();
+        await tx.CommitAsync();
+
+        return currentGame.ToDto();
+        
+        /*
         var game = await _dbContext.Games
             .AsNoTracking()
             .SingleOrDefaultAsync(g => g.IsActive && g.NumbersPublishedAt == null);
@@ -33,6 +83,7 @@ public class GameService : IGameService
             throw new InvalidOperationException("No active game found, this shouldn't happen.");
         }
         return game.ToDto();
+         */
     }
 
     public async Task<GameDto> GetGameByIdAsync(Guid gameId)
@@ -467,21 +518,25 @@ public class GameService : IGameService
 
         for (var i = 0; i < weeksToSeed; i++)
         {
-            var monday = currentMonday.AddDays(i * 7);
-            var year = ISOWeek.GetYear(monday);
-            var week = ISOWeek.GetWeekOfYear(monday);
+            var mondayLocal = currentMonday.AddDays(i * 7);
+            var year = ISOWeek.GetYear(mondayLocal);
+            var week = ISOWeek.GetWeekOfYear(mondayLocal);
             
             if (existingGameKeys.Contains((year, week)))
             {
                 continue;
             }
 
-            var endDate = monday.AddDays(7).AddTicks(-1);
-            var saturday = monday.AddDays(5);
+            var endDateLocal = mondayLocal.AddDays(7).AddTicks(-1);
+            var saturdayLocal = mondayLocal.AddDays(5);
             
             var saturdayLocalTime = new DateTime(
-                saturday.Year, saturday.Month, saturday.Day, 
+                saturdayLocal.Year, saturdayLocal.Month, saturdayLocal.Day, 
                 17, 0, 0, DateTimeKind.Unspecified);
+            
+            var monday = TimeZoneInfo.ConvertTimeToUtc(
+                DateTime.SpecifyKind(mondayLocal, DateTimeKind.Unspecified), DkTimeZone);
+            var endDate = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(endDateLocal, DateTimeKind.Unspecified), DkTimeZone);
 
             var guessDeadlineUtc = TimeZoneInfo.ConvertTimeToUtc(saturdayLocalTime, DkTimeZone);
 

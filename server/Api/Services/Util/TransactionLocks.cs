@@ -13,7 +13,7 @@ public static class TransactionLocks
     public static Task AcquireUserTransactionLockAsync(DbContext context,Guid userId)
     {
         var (k1, k2) = UserKey(userId);
-        return context.Database.ExecuteSqlInterpolatedAsync($"SELECT pg_advisory_xact_lock({k1}, {k2});");
+        return context.Database.ExecuteSqlInterpolatedAsync($"SELECT pg_advisory_xact_lock({k1}, {k2})");
     }
 
     //TODO refactor use cancellation tokens everywhere
@@ -21,7 +21,8 @@ public static class TransactionLocks
     {
         var (k1, k2) = UserKey(userId);
         
-        return await context.Database.SqlQuery<bool>($"SELECT pg_try_advisory_xact_lock({k1}, {k2});")
+        return await context.Database
+            .SqlQuery<bool>($"SELECT pg_try_advisory_xact_lock({k1}, {k2}) AS \"Value\"")
             .SingleAsync();
     }
     
@@ -30,7 +31,8 @@ public static class TransactionLocks
     {
         var (k1, k2) = UserKey(userId);
         
-        return await context.Database.SqlQuery<bool>($"SELECT pg_try_advisory_xact_lock({k1}, {k2});")
-            .SingleAsync(cancellationToken: ct);
+        return await context.Database
+            .SqlQuery<bool>($"SELECT pg_try_advisory_xact_lock({k1}, {k2}) AS \"Value\"")
+            .SingleAsync(ct);
     }
 }

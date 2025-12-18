@@ -96,15 +96,25 @@ public partial class Program
         services.AddOpenApiDocument();
         services.AddProblemDetails();
         services.AddExceptionHandler<ExceptionHandler>();
-        services.AddCors();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("Frontend", p => p
+                .WithOrigins("http://localhost:5173")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+        });
     }
     
     public static void Configure(WebApplication app)
     {
         app.UseExceptionHandler();
         
-        app.UseCors(p => p.WithOrigins(UrlConstants.FrontEndUrl).AllowAnyHeader().AllowAnyMethod());
-
+        app.UseRouting();
+        
+        //app.UseCors(p => p.WithOrigins(UrlConstants.FrontEndUrl).AllowAnyHeader().AllowAnyMethod());
+        
+        app.UseCors("Frontend");
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseOpenApi();
@@ -143,6 +153,8 @@ public partial class Program
         var adminUser = await userManager
             .FindByEmailAsync(adminEmail);
 
+        
+        SeedOneUserAsync(userManager).Wait();
         if (adminUser == null)
         {
             adminUser = new ApplicationUser
@@ -161,6 +173,37 @@ public partial class Program
                 await userManager.AddToRoleAsync(adminUser, "Admin");
             }
             //TODO log/throw something here
+            
         }
+    }
+    
+    //TODO remove
+    private static async Task SeedOneUserAsync(UserManager<ApplicationUser> userManager)
+    {
+        const string userEmail = "active@test.dk";
+        var user = await userManager
+            .FindByEmailAsync(userEmail);
+
+        if (user == null)
+        {
+            user = new ApplicationUser
+            {
+                UserName = userEmail,
+                FullName = "ActiveTestUser", 
+                Email = userEmail,  
+                EmailConfirmed = true,
+                IsActivePlayer = true,
+            };
+
+            //TODO change password before deploying
+            var result = await userManager.CreateAsync(user, "123456");
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Player");
+            }
+            //TODO log/throw something here
+        }
+        
     }
 }

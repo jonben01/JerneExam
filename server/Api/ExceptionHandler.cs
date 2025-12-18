@@ -5,7 +5,7 @@ namespace Api;
 
 public class ExceptionHandler : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken ct)
     {
         var problemDetails = new ProblemDetails()
         {
