@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
+import type { ReactNode } from "react";
 import { isAdmin, isUserLoggedIn } from "../api/authService";
-import * as React from "react";
 
 interface ProtectedAdminProps {
     children: ReactNode;
