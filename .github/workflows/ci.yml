@@ -33,7 +33,7 @@ jobs:
 
       - name: Test backend
         run: dotnet test --configuration Release --no-build --verbosity normal
-        working-directory: server/Testing
+        working-directory: server/Tests
 
       # -----------------------
       # Frontend (React + TS)
