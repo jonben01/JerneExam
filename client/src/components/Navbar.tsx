@@ -1,13 +1,12 @@
-import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isAdmin, isUserLoggedIn, logoutUser } from "../api/authService";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const location = useLocation();
+    useLocation();
 
-    const isLoggedIn = useMemo(() => isUserLoggedIn(), [location.pathname]);
-    const isUserAdmin = useMemo(() => isAdmin(), [location.pathname]);
+    const isLoggedIn = isUserLoggedIn();
+    const isUserAdmin = isAdmin();
 
     const handleLogout = () => {
         logoutUser();

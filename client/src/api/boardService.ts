@@ -1,15 +1,15 @@
 import {
+    type BoardDto,
     type BoardPurchaseResponseDto,
     type GameDto,
-    type PurchaseBoardRequest, type BoardDto,
+    type PurchaseBoardRequest,
 } from "../generated-ts-client";
 import {boardClient, gameClient} from "./clients.ts";
 
 
 export const getActiveGame = async (): Promise<GameDto> => {
 
-    const response = await gameClient.getActiveGame();
-    return response;
+    return await gameClient.getActiveGame();
 };
 
 export const purchaseBoard = async (
@@ -22,14 +22,12 @@ export const purchaseBoard = async (
         numbers: selectedNumbers,
     };
 
-    const response = await boardClient.purchaseBoard(request);
-    return response;
+    return await boardClient.purchaseBoard(request);
 
 };
 
 export const getMyBoards = async (gameId?: string): Promise<BoardDto[]> => {
 
-    const response = await boardClient.getMyBoards(gameId);
-    return response;
+    return await boardClient.getMyBoards(gameId);
 
 };

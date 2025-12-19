@@ -17,10 +17,6 @@ const TransactionsPage = () => {
     >([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        loadDeposits();
-    }, []);
-
     const loadDeposits = async () => {
         try {
             setLoading(true);
@@ -37,6 +33,10 @@ const TransactionsPage = () => {
         }
     };
 
+    useEffect(() => {
+        void loadDeposits();
+    }, []);
+
     const handleApprove = async (transactionId: string | undefined) => {
         if (!transactionId) {
             toast.error("Invalid transaction ID");
@@ -44,7 +44,7 @@ const TransactionsPage = () => {
         }
         try {
             await approveDeposit(transactionId);
-            loadDeposits();
+            await loadDeposits();
             toast.success(`Approved deposit.`);
         } catch (error) {
             toast.error("Failed to approve deposit");
@@ -59,7 +59,7 @@ const TransactionsPage = () => {
         }
         try {
             await rejectDeposit(transactionId);
-            loadDeposits();
+            await loadDeposits();
             toast.error(`Rejected deposit.`);
         } catch (error) {
             toast.error("Failed to reject deposit");

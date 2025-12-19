@@ -59,15 +59,22 @@ const GamePage = () => {
     useEffect(() => {
         const fetchInitialData = async () => {
             setLoading(true);
-            const activeGame = await getActiveGame();
-            await fetchBalance();
-            await fetchBoards();
-            setGame(activeGame);
-            setError("");
-            setLoading(false);
+            try {
+                const activeGame = await getActiveGame();
+                await fetchBalance();
+                await fetchBoards();
+                setGame(activeGame);
+                setError("");
+            } catch (error: unknown) {
+                console.error("Failed to load initial game data:", error);
+                setError("Failed to load game data");
+                setGame(null);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        fetchInitialData();
+        void fetchInitialData();
     }, []);
 
     const handleSelectButton = (value: number) => {
@@ -99,12 +106,20 @@ const GamePage = () => {
 
         setIsSubmitting(true);
         setError("");
-        await purchaseBoard(selectedButtons, game.id!);
-        setSelectedButtons([]);
-        toast.success("Board purchased successfully!");
-        await fetchBoards();
-        await fetchBalance();
-        setIsSubmitting(false);
+
+        try {
+            await purchaseBoard(selectedButtons, game.id!);
+            setSelectedButtons([]);
+            toast.success("Board purchased successfully!");
+            await fetchBoards();
+            await fetchBalance();
+
+        } catch {
+            toast.error("Could not purchase board!");
+        } finally {
+            setIsSubmitting(false);
+        }
+
     };
 
     return (

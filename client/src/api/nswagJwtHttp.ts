@@ -5,15 +5,31 @@ type NswagJwtHttp = {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
 };
 
+type ProblemJson = {
+    detail?: unknown;
+    title?: unknown;
+};
+
+function pickProblemMessage(data: unknown): string | null {
+    if (!data || typeof data !== "object") return null;
+
+    const obj = data as ProblemJson;
+
+    const detail = typeof obj.detail === "string" ? obj.detail : null;
+    const title = typeof obj.title === "string" ? obj.title : null;
+
+    return detail ?? title;
+}
+
 async function tryGetProblemMessage(res: Response): Promise<string | null> {
     const ct = res.headers.get("content-type") ?? "";
     try {
         if (ct.includes("application/problem+json") || ct.includes("application/json")) {
-            const data: any = await res.json();
-            return data?.detail ?? data?.title ?? null;
+            const data: unknown = await res.json();
+            return pickProblemMessage(data);
         }
         const text = await res.text();
-        return text?.trim() ? text : null;
+        return text.trim() ? text : null;
     } catch {
         return null;
     }
@@ -39,7 +55,7 @@ export const createJwtHttp = (): NswagJwtHttp => ({
                 return response;
             }
             return response;
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error("Network error, please try again");
             throw error;
         }

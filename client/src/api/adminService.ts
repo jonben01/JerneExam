@@ -1,7 +1,4 @@
-import {
-    type GameDto,
-    type PublishWinningNumbersRequest,
-} from "../generated-ts-client";
+import {type GameDto, type PublishWinningNumbersRequest,} from "../generated-ts-client";
 import {gameClient} from "./clients.ts";
 
 export const publishWinningNumbers = async (
@@ -19,7 +16,6 @@ export const publishWinningNumbers = async (
         winningNumber3,
     };
 
-    const response = await gameClient.publishWinningNumbersAndEndGame(request);
-    return response;
+    return await gameClient.publishWinningNumbersAndEndGame(request);
 
 };

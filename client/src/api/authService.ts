@@ -29,26 +29,28 @@ export const loginUser = async (
 
         // Store token in localStorage if login is successful
         if (response.token) {
-            localStorage.setItem(TOKEN_KEY, response.token);
-            localStorage.setItem(USER_KEY, JSON.stringify(response.user));
 
-            if (response.role) localStorage.setItem(ROLE_KEY, response.role);
+            localStorage.setItem(TOKEN_KEY, response.token);
+
+            if (response.user) {
+                localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+            }
+
+            if (response.role) {
+                localStorage.setItem(ROLE_KEY, response.role);
+            }
 
             if (response.expires) {
-                const expiresIso =
-                    typeof response.expires === "string"
-                        ? response.expires
-                        : new Date(response.expires as any).toISOString() ;
-
-                localStorage.setItem(EXPIRES_KEY, expiresIso);
+                localStorage.setItem(EXPIRES_KEY, response.expires);
             }
+
         } else {
             logoutUser();
         }
 
         return response;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         toast.error("Wrong credentials");
         console.error("Login failed:", error);
         throw error;
@@ -64,11 +66,6 @@ export const logoutUser = () => {
 
 export const getAuthToken = (): string | null => {
     return localStorage.getItem(TOKEN_KEY);
-};
-
-export const getCurrentUser = () => {
-    const userStr = localStorage.getItem(USER_KEY);
-    return userStr ? JSON.parse(userStr) : null;
 };
 
 export const getRole = (): string | null => localStorage.getItem(ROLE_KEY);
