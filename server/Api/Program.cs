@@ -37,7 +37,7 @@ public partial class Program
                 b => b.MigrationsAssembly("DataAccess")));
         
         var frontendOrigin =
-            configuration.GetValue<string>("Frontend__Origin")?.Trim()
+            configuration.GetValue<string>("Frontend_Origin")?.Trim()
             ?? (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
                 ? "http://localhost:5173"
                 : "https://jonas-exam-web.fly.dev"); 

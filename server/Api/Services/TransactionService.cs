@@ -68,7 +68,7 @@ public class TransactionService : ITransactionService
                                && t.TransactionType == TransactionType.Deposit 
                                && t.AmountDkk == request.AmountDkk, ct);
 
-            //Idempotent silent succession if user already submitted this, mostly for double clicks.
+            //Idempotent silent success if user already submitted this, mostly for double clicks.
             if (isMine)
             {
                 return;

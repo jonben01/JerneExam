@@ -57,6 +57,7 @@ public class GameService : IGameService
                                        && g.NumbersPublishedAt == null);
         
         if (currentGame is null)
+            //TODO rephrase
             throw new InvalidOperationException($"No game found for DK ISO week {currentWeek}, year {currentYear}.");
         
         await _dbContext.Games
@@ -72,18 +73,6 @@ public class GameService : IGameService
         await tx.CommitAsync();
 
         return currentGame.ToDto();
-        
-        /*
-        var game = await _dbContext.Games
-            .AsNoTracking()
-            .SingleOrDefaultAsync(g => g.IsActive && g.NumbersPublishedAt == null);
-
-        if (game is null)
-        {
-            throw new InvalidOperationException("No active game found, this shouldn't happen.");
-        }
-        return game.ToDto();
-         */
     }
 
     public async Task<GameDto> GetGameByIdAsync(Guid gameId)
