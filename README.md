@@ -157,7 +157,7 @@ Client access:
   - Tests exist for service methods currently used by the client (happy + unhappy paths).
   - Most endpoints/services are not covered yet because the project is unfinished.
 
-  ---
+---
 
 ## API documentation
 - Swagger/OpenAPI is provided via **NSwag**.
