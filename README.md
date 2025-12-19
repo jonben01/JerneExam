@@ -5,7 +5,7 @@ Created by: **Jonas Bendorff** (solo)
 
 A distributed system that digitizes Jerne IF’s “Dead Pigeons” game to make it easier to manage, scale, and track **digital participants** (while still supporting physical play alongside it).
 
-**Deployed**
+**Deployed** (Machines most likely stopped, takes a minute or two to wake up)
 - Client: https://jonas-exam-web.fly.dev
 - API: https://jonas-exam-api.fly.dev
 
