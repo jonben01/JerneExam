@@ -12,8 +12,8 @@ const Button = ({ toggled = false, ...props }: ButtonProps) => {
             {...props}
             onClick={onClick}
             style={{
-                width: "150px",
-                height: "150px",
+                width: "9rem",
+                height: "4.5rem",
                 backgroundColor: toggled ? "#dc2626" : "#fecaca",
                 color: "black",
                 border: toggled ? "2px solid #b91c1c" : "2px solid #fca5a5",

@@ -10,18 +10,16 @@ export const publishWinningNumbers = async (
     winningNumber2: number,
     winningNumber3: number
 ): Promise<GameDto> => {
-    try {
 
-        const request: PublishWinningNumbersRequest = {
-            gameId,
-            winningNumber1,
-            winningNumber2,
-            winningNumber3,
-        };
 
-        const response = await gameClient.publishWinningNumbersAndEndGame(request);
-        return response;
-    } catch (error) {
-        throw error;
-    }
+    const request: PublishWinningNumbersRequest = {
+        gameId,
+        winningNumber1,
+        winningNumber2,
+        winningNumber3,
+    };
+
+    const response = await gameClient.publishWinningNumbersAndEndGame(request);
+    return response;
+
 };

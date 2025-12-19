@@ -36,6 +36,12 @@ public partial class Program
             .UseNpgsql(connectionString,
                 b => b.MigrationsAssembly("DataAccess")));
         
+        var frontendOrigin =
+            configuration.GetValue<string>("Frontend__Origin")?.Trim()
+            ?? (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+                ? "http://localhost:5173"
+                : "https://jonas-exam-web.fly.dev"); 
+        
         services.Configure<SmtpOptions>(configuration.GetSection("Smtp"));
         
         services.AddScoped<ITokenService, TokenService>();
@@ -99,7 +105,7 @@ public partial class Program
         services.AddCors(options =>
         {
             options.AddPolicy("Frontend", p => p
-                .WithOrigins("http://localhost:5173")
+                .WithOrigins(frontendOrigin)
                 .AllowAnyMethod()
                 .AllowAnyHeader());
         });

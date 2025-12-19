@@ -123,7 +123,7 @@ public class GameService : IGameService
                 g.Id == request.GameId &&
                 g.IsActive &&
                 g.NumbersPublishedAt == null &&
-                g.GuessDeadline <= nowUtc)
+               g.GuessDeadline <= nowUtc)
             .ExecuteUpdateAsync(s => s
                 .SetProperty(g => g.WinningNumber1, request.WinningNumber1)
                 .SetProperty(g => g.WinningNumber2, request.WinningNumber2)
@@ -149,7 +149,7 @@ public class GameService : IGameService
             {
                 throw new KeyNotFoundException($"No game found with id {request.GameId}");
             }
-
+            
             if (nowUtc < state.GuessDeadline)
             {
                 throw new InvalidOperationException("Cannot publish numbers before guess deadline");

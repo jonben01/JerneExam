@@ -127,7 +127,43 @@ public static class EntityToDtoMapper
         Numbers = board.Numbers
             .OrderBy(n => n.Number)
             .Select(n => n.Number)
-            .ToList()
+            .ToList(),
+    };
+    public static readonly Expression<Func<Board, BoardDto>> BoardToDtoWithGame = board => new BoardDto
+    {
+        Id = board.Id,
+        GameId = board.GameId,
+        PlayerId = board.PlayerId,
+        PlayerName = board.Player.FullName,
+
+        NumberCount = board.NumberCount,
+        PriceDkk = board.PriceDkk,
+        IsWinningBoard = board.IsWinningBoard,
+        SubscriptionId = board.SubscriptionId,
+        CreatedAt = board.CreatedAt,
+        UpdatedAt = board.UpdatedAt,
+
+        Numbers = board.Numbers
+            .OrderBy(n => n.Number)
+            .Select(n => n.Number)
+            .ToList(),
+
+        Game = new GameDto
+        {
+            Id = board.Game.Id,
+            WeekNumber = board.Game.WeekNumber,
+            Year = board.Game.Year,
+            StartDate = board.Game.StartDate,
+            EndDate = board.Game.EndDate,
+            GuessDeadline = board.Game.GuessDeadline,
+            IsActive = board.Game.IsActive,
+            WinningNumber1 = board.Game.WinningNumber1,
+            WinningNumber2 = board.Game.WinningNumber2,
+            WinningNumber3 = board.Game.WinningNumber3,
+            NumbersPublishedAt = board.Game.NumbersPublishedAt,
+            CreatedAt = board.Game.CreatedAt,
+            UpdatedAt = board.Game.UpdatedAt,
+        }
     };
 
     public static BoardSubscriptionDto ToDto(this BoardSubscription subscription)

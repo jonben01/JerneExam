@@ -246,7 +246,7 @@ public class BoardService : IBoardService
         }
         return await boards
             .OrderByDescending(b => b.CreatedAt)
-            .Select(EntityToDtoMapper.BoardToDto)
+            .Select(EntityToDtoMapper.BoardToDtoWithGame)
             .ToListAsync();
     }
 
