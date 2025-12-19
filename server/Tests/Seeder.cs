@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using System.Globalization;
+using DataAccess;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,15 @@ public interface ISeeder
         int numberCount = 5,
         int priceDkk = 20,
         bool isWinningBoard = false);
+    
+    Task<(Game current, Game next)> SeedPublishableGameWithNextWeekGameAsync(
+        int year,
+        int week,
+        DateTime? currentGuessDeadlineUtc = null,
+        bool currentIsActive = true,
+        DateTime? currentNumbersPublishedAt = null,
+        bool nextIsActive = false,
+        DateTime? nextNumbersPublishedAt = null);
 }
 
 public class Seeder(
@@ -412,5 +422,39 @@ public class Seeder(
         context.Boards.Add(board);
         await context.SaveChangesAsync();
         return board;
+    }
+
+    public async Task<(Game current, Game next)> SeedPublishableGameWithNextWeekGameAsync(
+        int year,
+        int week,
+        DateTime? currentGuessDeadlineUtc = null,
+        bool currentIsActive = true,
+        DateTime? currentNumbersPublishedAt = null,
+        bool nextIsActive = false,
+        DateTime? nextNumbersPublishedAt = null)
+    {
+        var current = await SeedGameAsync(
+            weekNumber: week,
+            year: year,
+            isActive: currentIsActive,
+            numbersPublishedAt: currentNumbersPublishedAt,
+            guessDeadlineUtc: currentGuessDeadlineUtc);
+
+        var (nextYear, nextWeek) = GetNextIsoWeek(year, week);
+
+        var next = await SeedGameAsync(
+            weekNumber: nextWeek,
+            year: nextYear,
+            isActive: nextIsActive,
+            numbersPublishedAt: nextNumbersPublishedAt);
+
+        return (current, next);
+    }
+
+    private static (int year, int week) GetNextIsoWeek(int year, int week)
+    {
+        var monday = ISOWeek.ToDateTime(year, week, DayOfWeek.Monday);
+        var nextMonday = monday.AddDays(7);
+        return (ISOWeek.GetYear(nextMonday), ISOWeek.GetWeekOfYear(nextMonday));
     }
 }
