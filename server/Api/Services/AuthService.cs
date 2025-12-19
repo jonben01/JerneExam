@@ -164,9 +164,11 @@ public class AuthService : IAuthService
 
     public async Task GeneratePasswordResetTokenAsync(string email)
     {
+        email = email.Trim();
+        
         if (string.IsNullOrWhiteSpace(email))
         {
-            throw new ArgumentException("Email is empty");
+            throw new ArgumentException("Email is empty", nameof(email));
         }
         
         var user =  await _userManager.FindByEmailAsync(email);
@@ -174,6 +176,12 @@ public class AuthService : IAuthService
         if (user is null || user.IsDeleted)
         {
             //avoid user enumeration
+            return;
+        }
+
+        //should never happen, but better to be certain than suppress warning
+        if (string.IsNullOrWhiteSpace(user.Email))
+        {
             return;
         }
         
