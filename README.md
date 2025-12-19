@@ -1,4 +1,4 @@
-# Dead Pigeons 🐦
+# Dead Pigeons
 
 **3rd Semester Exam Project at EASV**  
 Created by: **Jonas Bendorff** (solo)
